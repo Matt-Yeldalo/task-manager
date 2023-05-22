@@ -1,4 +1,4 @@
-interface IArticle {
+interface ITask {
   title: string,
   body: string
 }

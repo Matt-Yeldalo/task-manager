@@ -1,7 +1,7 @@
 class Api::TasksController < ApplicationController
   # GET /tasks
   def index
-    @tasks = Tasks.all 
+    @tasks = Task.all
     render json: @tasks
   end
 
@@ -13,14 +13,18 @@ class Api::TasksController < ApplicationController
 
   # POST /tasks
   def create
-      @task = Task.new(task_param)
-      if @task.save
-        render json: @task
-      else  
-        render error: {error: 'Unable to create User.'}, status: 400
-      end
+    puts params
+    @task = Task.new(task_param)
+    if @task.save
+      render json: @task
+    else
+      render error: { error: 'Unable to create task.' }, status: 400
+    end
   end
 
+  private
+
+  def task_param
+    params.require(:task).permit(:title, :body)
+  end
 end
-
-
